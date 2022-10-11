@@ -11,7 +11,7 @@ def login_required(f):
         token = token.split("Bearer ")[1]
         try:
             payload = decodeToken(token)
-            return f(payload, *args, **kwargs)
         except Exception as e:
             return jsonify({"status": 401, "message": str(e)}), 401
+        return f(payload, *args, **kwargs)
     return decorator
